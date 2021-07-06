@@ -2,17 +2,19 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	v1 "github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 
-	_ "github.com/go-programming-tour-book/blog-service/docs"  // 访问 swagger 需添加，煎鱼文档中未提示
+	_ "github.com/go-programming-tour-book/blog-service/docs" // 访问 swagger 需添加，煎鱼文档中未提示
 )
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
+	r.Use(middleware.Translations())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	article := v1.NewArticle()
