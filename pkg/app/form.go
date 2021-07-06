@@ -42,14 +42,12 @@ func BindAndValid(c *gin.Context, v interface{}) (bool, ValidErrors) {
 		if !ok {
 			return false, errs
 		}
-
 		for key, value := range verrs.Translate(trans) {
 			errs = append(errs, &ValidError{
 				Key:     key,
 				Message: value,
 			})
 		}
-
 		return false, errs
 	}
 
